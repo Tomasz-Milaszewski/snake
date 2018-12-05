@@ -1,4 +1,5 @@
 .game-container {
+    margin: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -9,4 +10,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+#canvas {
+    outline: 1px solid black;
 }
