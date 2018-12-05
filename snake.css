@@ -1,0 +1,12 @@
+.game-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.board-container,
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
