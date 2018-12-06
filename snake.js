@@ -55,8 +55,8 @@
         clearSnake();
         currentHeadX += incrX;
         currentHeadY += incrY;
+        hitBorderOrItself();
         snake.unshift({ x: currentHeadX, y: currentHeadY });
-        hitBorder();
         eatApple();
         drawSnake();
       }, time);
@@ -64,13 +64,14 @@
     }
     moveSnake(snakeTime);
 
-    // hit border
-    function hitBorder() {
+    // hit border or itself
+    function hitBorderOrItself() {
       if (
         currentHeadX < 0 ||
         currentHeadX > 19 ||
         currentHeadY < 0 ||
-        currentHeadY > 19
+        currentHeadY > 19 ||
+        snake.some((e) => {return (e.x === currentHeadX && e.y === currentHeadY)})
       ) {
         clearInterval(appleInterval);
         drawSnake();
