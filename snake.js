@@ -12,9 +12,9 @@
   var appleInterval;
   // snake's initial values
   const snakeTime = 200;
-  let snake = [{ x: 0, y: 0 }];
-  let currentX = 0;
-  let currentY = 0;
+  let snake = [{ x: 3, y: 0 }, { x: 2, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 0 }];
+  let currentHeadX = 3;
+  let currentHeadY = 0;
   let incrX = 1;
   let incrY = 0;
   var snakeInterval;
@@ -24,11 +24,10 @@
     drawSnake();
     snakeInterval = setInterval(() => {
       clearSnake();
-      currentX += incrX;
-      currentY += incrY;
+      currentHeadX += incrX;
+      currentHeadY += incrY;
+      snake.unshift({x: currentHeadX, y: currentHeadY});
       eatApple();
-      snake[0].x = currentX;
-      snake[0].y = currentY;
       drawSnake();
     }, time);
     return snakeInterval;
@@ -37,11 +36,13 @@
 
   // eat apple
   function eatApple() {
-    if (currentX === appleX && currentY === appleY) {
+    if (currentHeadX === appleX && currentHeadY === appleY) {
       clearInterval(appleInterval);
       appleX = Math.floor(Math.random() * cellsGrid);
       appleY = Math.floor(Math.random() * cellsGrid);
       setApple(appleTime);
+    } else {
+      snake.pop();
     }
   }
 
