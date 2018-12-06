@@ -49,7 +49,7 @@
     } while (mineX === appleX && mineY === appleY);
     var mineInterval;
     // snake's initial values
-    let snakeTime = 200;
+    let snakeTime = 100;
     let snake = [{ x: 0, y: 0 }];
     let currentHeadX = 0;
     let currentHeadY = 0;
@@ -65,7 +65,7 @@
         clearSnake();
         currentHeadX += incrX;
         currentHeadY += incrY;
-        hitBorderOrItself();
+        hitBorderOrItselfOrMine();
         snake.unshift({ x: currentHeadX, y: currentHeadY });
         eatApple();
         drawSnake();
@@ -74,8 +74,8 @@
     }
     moveSnake(snakeTime);
 
-    // hit border or itself
-    function hitBorderOrItself() {
+    // hit border or itself or mine
+    function hitBorderOrItselfOrMine() {
       if (
         currentHeadX < 0 ||
         currentHeadX > 19 ||
@@ -86,9 +86,20 @@
         })
       ) {
         clearInterval(appleInterval);
+        clearInterval(mineInterval);
         drawSnake();
         clearInterval(snakeInterval);
         gameOver();
+      } else {
+        if (currentHeadX === mineX && currentHeadY === mineY) {
+          clearInterval(appleInterval);
+          clearInterval(mineInterval);
+          clearInterval(snakeInterval);
+          drawSnake();
+          snake.pop();
+          snake.shift();
+          gameOver();
+        }
       }
     }
 
