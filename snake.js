@@ -40,7 +40,7 @@
     let appleY = 1 + Math.floor(Math.random() * (cellsGrid - 1));
     var appleInterval;
     // snake's initial values
-    const snakeTime = 200;
+    let snakeTime = 200;
     let snake = [{ x: 0, y: 0 }];
     let currentHeadX = 0;
     let currentHeadY = 0;
@@ -96,11 +96,19 @@
           snake.some(e => {
             return e.x === appleX && e.y === appleY;
           })
-        );
-        setApple(appleTime);
+          );
+          setApple(appleTime);
+          if (score % 5 === 0) {increaseSpeed()};
       } else {
         snake.pop();
       }
+    }
+
+    // increase speed every 5 apples
+    function increaseSpeed () {
+      snakeTime = snakeTime / 1.25;
+      clearInterval(snakeInterval);
+      moveSnake(snakeTime);
     }
 
     // clear snake

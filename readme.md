@@ -31,10 +31,6 @@ This is a repository for a classic Snake game.
 
 ## To do
 
-#### Basic version
-
-* each 5 eaten apples snake moves 1.25 times faster
-
 #### Additional features
 
 * mines - every 30 seconds new mine appears on the board in some random position. If snake crashes into mine - game ends
