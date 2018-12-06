@@ -40,9 +40,13 @@
     let appleY = 1 + Math.floor(Math.random() * (cellsGrid - 1));
     var appleInterval;
     // mine initial values
-    const mineTime = 5000;
+    const mineTime = 30000;
     let mineX = null;
     let mineY = null;
+    do {
+      mineX = 1 + Math.floor(Math.random() * (cellsGrid - 1));
+      mineY = 1 + Math.floor(Math.random() * (cellsGrid - 1));
+    } while (mineX === appleX && mineY === appleY);
     var mineInterval;
     // snake's initial values
     let snakeTime = 200;
@@ -91,7 +95,7 @@
     // eat apple
     function eatApple() {
       if (currentHeadX === appleX && currentHeadY === appleY) {
-        score ++;
+        score++;
         document.querySelector(".score span").innerHTML = `Score: ${score}`;
         clearInterval(appleInterval);
         do {
@@ -100,17 +104,20 @@
         } while (
           snake.some(e => {
             return e.x === appleX && e.y === appleY;
-          })
-          );
-          setApple(appleTime);
-          if (score % 5 === 0) {increaseSpeed()};
+          }) &&
+          (mineX === appleX && mineY === appleY)
+        );
+        setApple(appleTime);
+        if (score % 5 === 0) {
+          increaseSpeed();
+        }
       } else {
         snake.pop();
       }
     }
 
     // increase speed every 5 apples
-    function increaseSpeed () {
+    function increaseSpeed() {
       snakeTime = snakeTime / 1.25;
       clearInterval(snakeInterval);
       moveSnake(snakeTime);
@@ -193,16 +200,18 @@
         } while (
           snake.some(e => {
             return e.x === appleX && e.y === appleY;
-          }) && (mineX === appleX && mineY === appleY)
+          }) &&
+          (mineX === appleX && mineY === appleY)
         );
         drawAppleOrMine(appleX, appleY, "red");
       }, time);
       return appleInterval;
     }
     setApple(appleTime);
-    
+
     // mine interval: random position change every 30 seconds
     function setMine(time) {
+      drawAppleOrMine(mineX, mineY, "black");
       mineInterval = setInterval(() => {
         ctx.clearRect(mineX * cellSize, mineY * cellSize, cellSize, cellSize);
         do {
@@ -211,7 +220,8 @@
         } while (
           snake.some(e => {
             return e.x === mineX && e.y === mineY;
-          }) && (mineX === appleX && mineY === appleY)
+          }) &&
+          (mineX === appleX && mineY === appleY)
         );
         drawAppleOrMine(mineX, mineY, "black");
       }, time);
