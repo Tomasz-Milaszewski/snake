@@ -22,6 +22,8 @@
   }
 
   function action() {
+    // message
+    document.querySelector(".game-message").innerHTML = "Press Space to pause";
     // canvas
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext("2d");
@@ -29,6 +31,9 @@
     // board
     const cellSize = 10;
     const cellsGrid = 20;
+    // score
+    let score = 0;
+    document.querySelector(".score span").innerHTML = `Score: ${score}`;
     // apple's initial values
     const appleTime = 10000;
     let appleX = 1 + Math.floor(Math.random() * (cellsGrid - 1));
@@ -81,6 +86,8 @@
     // eat apple
     function eatApple() {
       if (currentHeadX === appleX && currentHeadY === appleY) {
+        score ++;
+        document.querySelector(".score span").innerHTML = `Score: ${score}`;
         clearInterval(appleInterval);
         do {
           appleX = Math.floor(Math.random() * cellsGrid);
