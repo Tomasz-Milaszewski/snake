@@ -1,16 +1,6 @@
 This is a repository for a classic Snake game.
 
-## Technologies and tools
-
-* HTML5, HTML Canvas
-* CSS3
-* Vanilla JS
-
-## Lessons learned
-
-* to be filled upon finishing project  
-
-## To do
+## Task instructions
 
 #### Basic version
 
@@ -24,5 +14,28 @@ This is a repository for a classic Snake game.
 #### Additional features
 
 * apple changes its position every 10 seconds
+* mines - every 30 seconds new mine appears on the board in some random position. If snake crashes into mine - game ends
+* local/global scoreboard
+
+## Technologies and tools
+
+* HTML5, HTML Canvas
+* CSS3
+* Vanilla JS
+
+## Lessons learned
+
+* `do {} while () loop`  
+* `array.unshift()`
+* `array.pop()`
+
+## To do
+
+#### Basic version
+
+* each 5 eaten apples snake moves 1.25 times faster
+
+#### Additional features
+
 * mines - every 30 seconds new mine appears on the board in some random position. If snake crashes into mine - game ends
 * local/global scoreboard

@@ -36,13 +36,8 @@
     var appleInterval;
     // snake's initial values
     const snakeTime = 200;
-    let snake = [
-      { x: 3, y: 0 },
-      { x: 2, y: 0 },
-      { x: 1, y: 0 },
-      { x: 0, y: 0 }
-    ];
-    let currentHeadX = 3;
+    let snake = [{ x: 0, y: 0 }];
+    let currentHeadX = 0;
     let currentHeadY = 0;
     let incrX = 1;
     let incrY = 0;
