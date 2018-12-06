@@ -1,7 +1,7 @@
 (function game() {
   let spaceCounter = 0;
   document.addEventListener("keydown", e => {
-    if (e.keyCode === 32) {
+    if (e.code === 'Space') {
       spaceCounter === 0
         ? action()
         : spaceCounter % 2 !== 0
@@ -122,20 +122,20 @@
 
     // move handler
     function moveHandler(e) {
-      switch (e.keyCode) {
-        case 37:
+      switch (e.code) {
+        case 'ArrowLeft':
           incrX = -1;
           incrY = 0;
           break;
-        case 38:
+        case 'ArrowUp':
           incrX = 0;
           incrY = -1;
           break;
-        case 39:
+        case 'ArrowRight':
           incrX = 1;
           incrY = 0;
           break;
-        case 40:
+        case 'ArrowDown':
           incrX = 0;
           incrY = 1;
           break;
