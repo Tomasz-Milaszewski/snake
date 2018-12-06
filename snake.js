@@ -39,6 +39,11 @@
     let appleX = 1 + Math.floor(Math.random() * (cellsGrid - 1));
     let appleY = 1 + Math.floor(Math.random() * (cellsGrid - 1));
     var appleInterval;
+    // mine initial values
+    const mineTime = 5000;
+    let mineX = null;
+    let mineY = null;
+    var mineInterval;
     // snake's initial values
     let snakeTime = 200;
     let snake = [{ x: 0, y: 0 }];
@@ -179,7 +184,7 @@
 
     // apple interval: random position change every 10 seconds
     function setApple(time) {
-      drawApple(appleX, appleY);
+      drawAppleOrMine(appleX, appleY, "red");
       appleInterval = setInterval(() => {
         ctx.clearRect(appleX * cellSize, appleY * cellSize, cellSize, cellSize);
         do {
@@ -188,16 +193,34 @@
         } while (
           snake.some(e => {
             return e.x === appleX && e.y === appleY;
-          })
+          }) && (mineX === appleX && mineY === appleY)
         );
-        drawApple(appleX, appleY);
+        drawAppleOrMine(appleX, appleY, "red");
       }, time);
       return appleInterval;
     }
     setApple(appleTime);
+    
+    // mine interval: random position change every 30 seconds
+    function setMine(time) {
+      mineInterval = setInterval(() => {
+        ctx.clearRect(mineX * cellSize, mineY * cellSize, cellSize, cellSize);
+        do {
+          mineX = Math.floor(Math.random() * cellsGrid);
+          mineY = Math.floor(Math.random() * cellsGrid);
+        } while (
+          snake.some(e => {
+            return e.x === mineX && e.y === mineY;
+          }) && (mineX === appleX && mineY === appleY)
+        );
+        drawAppleOrMine(mineX, mineY, "black");
+      }, time);
+      return mineInterval;
+    }
+    setMine(mineTime);
 
-    // draw apple
-    function drawApple(x, y) {
+    // draw apple and mine
+    function drawAppleOrMine(x, y, color) {
       ctx.beginPath();
       ctx.arc(
         x * cellSize + cellSize / 2,
@@ -207,7 +230,7 @@
         Math.PI * 2,
         true
       );
-      ctx.fillStyle = "red";
+      ctx.fillStyle = color;
       ctx.fill();
     }
   }
