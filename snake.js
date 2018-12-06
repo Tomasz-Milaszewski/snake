@@ -2,8 +2,12 @@
   let spaceCounter = 0;
   document.addEventListener("keydown", e => {
     if (e.keyCode === 32) {
-      spaceCounter === 0 ? action() : ((spaceCounter % 2 !== 0) ? pauseOn() : pauseOff())
-      spaceCounter ++;
+      spaceCounter === 0
+        ? action()
+        : spaceCounter % 2 !== 0
+        ? pauseOn()
+        : pauseOff();
+      spaceCounter++;
     }
   });
 
@@ -12,9 +16,8 @@
   // function pauseOff() {}
 
   function gameOver() {
-    clearInterval(snakeInterval);
-    clearInterval(appleInterval);
-    document.querySelector('game-message').innerHTML = 'Game over. Press Space to replay';
+    document.querySelector(".game-message").innerHTML =
+      "Game over. Press Space to replay";
     spaceCounter = 0;
   }
 
@@ -22,6 +25,7 @@
     // canvas
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext("2d");
+    ctx.clearRect(0,0,200,200);
     // board
     const cellSize = 10;
     const cellsGrid = 20;
@@ -52,12 +56,28 @@
         currentHeadX += incrX;
         currentHeadY += incrY;
         snake.unshift({ x: currentHeadX, y: currentHeadY });
+        hitBorder();
         eatApple();
         drawSnake();
       }, time);
       return snakeInterval;
     }
     moveSnake(snakeTime);
+
+    // hit border
+    function hitBorder() {
+      if (
+        currentHeadX < 0 ||
+        currentHeadX > 19 ||
+        currentHeadY < 0 ||
+        currentHeadY > 19
+      ) {
+        clearInterval(appleInterval);
+        drawSnake();
+        clearInterval(snakeInterval);
+        gameOver();
+      }
+    }
 
     // eat apple
     function eatApple() {
