@@ -1,7 +1,7 @@
 (function game() {
   let spaceCounter = 0;
   document.addEventListener("keydown", e => {
-    if (e.code === 'Space') {
+    if (e.code === "Space") {
       spaceCounter === 0
         ? action()
         : spaceCounter % 2 !== 0
@@ -25,7 +25,7 @@
     // canvas
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0,0,200,200);
+    ctx.clearRect(0, 0, 200, 200);
     // board
     const cellSize = 10;
     const cellsGrid = 20;
@@ -46,6 +46,7 @@
     let currentHeadY = 0;
     let incrX = 1;
     let incrY = 0;
+    let previousCode = "";
     var snakeInterval;
 
     // snake interval
@@ -71,7 +72,9 @@
         currentHeadX > 19 ||
         currentHeadY < 0 ||
         currentHeadY > 19 ||
-        snake.some((e) => {return (e.x === currentHeadX && e.y === currentHeadY)})
+        snake.some(e => {
+          return e.x === currentHeadX && e.y === currentHeadY;
+        })
       ) {
         clearInterval(appleInterval);
         drawSnake();
@@ -123,21 +126,37 @@
     // move handler
     function moveHandler(e) {
       switch (e.code) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
+          if (previousCode === "ArrowRight") {
+            return;
+          }
           incrX = -1;
           incrY = 0;
+          previousCode = e.code;
           break;
-        case 'ArrowUp':
+        case "ArrowUp":
+          if (previousCode === "ArrowDown") {
+            return;
+          }
           incrX = 0;
           incrY = -1;
+          previousCode = e.code;
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
+          if (previousCode === "ArrowLeft") {
+            return;
+          }
           incrX = 1;
           incrY = 0;
+          previousCode = e.code;
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
+          if (previousCode === "ArrowUp") {
+            return;
+          }
           incrX = 0;
           incrY = 1;
+          previousCode = e.code;
           break;
       }
     }
