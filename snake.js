@@ -31,8 +31,8 @@
     const cellsGrid = 20;
     // apple's initial values
     const appleTime = 10000;
-    let appleX = Math.floor(Math.random() * cellsGrid);
-    let appleY = Math.floor(Math.random() * cellsGrid);
+    let appleX = 1 + Math.floor(Math.random() * (cellsGrid - 1));
+    let appleY = 1 + Math.floor(Math.random() * (cellsGrid - 1));
     var appleInterval;
     // snake's initial values
     const snakeTime = 200;
@@ -87,8 +87,14 @@
     function eatApple() {
       if (currentHeadX === appleX && currentHeadY === appleY) {
         clearInterval(appleInterval);
-        appleX = Math.floor(Math.random() * cellsGrid);
-        appleY = Math.floor(Math.random() * cellsGrid);
+        do {
+          appleX = Math.floor(Math.random() * cellsGrid);
+          appleY = Math.floor(Math.random() * cellsGrid);
+        } while (
+          snake.some(e => {
+            return e.x === appleX && e.y === appleY;
+          })
+        );
         setApple(appleTime);
       } else {
         snake.pop();
@@ -166,8 +172,14 @@
       drawApple(appleX, appleY);
       appleInterval = setInterval(() => {
         ctx.clearRect(appleX * cellSize, appleY * cellSize, cellSize, cellSize);
-        appleX = Math.floor(Math.random() * cellsGrid);
-        appleY = Math.floor(Math.random() * cellsGrid);
+        do {
+          appleX = Math.floor(Math.random() * cellsGrid);
+          appleY = Math.floor(Math.random() * cellsGrid);
+        } while (
+          snake.some(e => {
+            return e.x === appleX && e.y === appleY;
+          })
+        );
         drawApple(appleX, appleY);
       }, time);
       return appleInterval;
