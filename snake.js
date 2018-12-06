@@ -5,20 +5,82 @@
   // board
   const cellSize = 10;
   const cellsGrid = 20;
-  // apple's initial position
+  // apple's initial values
+  const appleTime = 10000;
   let appleX = Math.floor(Math.random() * cellsGrid);
   let appleY = Math.floor(Math.random() * cellsGrid);
   // snake's initial values
+  const snakeTime = 200;
   let snake = [{ x: 0, y: 0 }];
-  
-  // draw snake
-  function drawSnake() {
-    ctx.fillStyle = 'green';
-    for (let i = 0 ; i < snake.length ; i++) {
-      ctx.fillRect(snake[i].x * cellSize + 1, snake[i].y * cellSize + 1, cellSize - 1, cellSize - 1);
+  let currentX = 0;
+  let currentY = 0;
+  let incrX = 1;
+  let incrY = 0;
+
+  // snake interval
+  function moveSnake(time) {
+    drawSnake();
+    const snakeInterval = setInterval(() => {
+      clearSnake();
+      currentX += incrX;
+      currentY += incrY;
+      snake[0].x = currentX;
+      snake[0].y = currentY;
+      drawSnake();
+    }, time);
+    return snakeInterval;
+  }
+  moveSnake(snakeTime);
+
+  //clear snake
+  function clearSnake() {
+    for (let i = 0; i < snake.length; i++) {
+      ctx.clearRect(
+        snake[i].x * cellSize,
+        snake[i].y * cellSize,
+        cellSize,
+        cellSize
+      );
     }
   }
-  drawSnake();
+
+  // draw snake
+  function drawSnake() {
+    ctx.fillStyle = "green";
+    for (let i = 0; i < snake.length; i++) {
+      ctx.fillRect(
+        snake[i].x * cellSize + 1,
+        snake[i].y * cellSize + 1,
+        cellSize - 1,
+        cellSize - 1
+      );
+    }
+  }
+
+  //move listener
+  document.addEventListener("keydown", moveHandler);
+
+  //move handler
+  function moveHandler(e) {
+    switch (e.keyCode) {
+      case 37:
+        incrX = -1;
+        incrY = 0;
+        break;
+      case 38:
+        incrX = 0;
+        incrY = -1;
+        break;
+      case 39:
+        incrX = 1;
+        incrY = 0;
+        break;
+      case 40:
+        incrX = 0;
+        incrY = 1;
+        break;
+    }
+  }
 
   // apple interval: random position change every 10 seconds
   function setApple(time) {
@@ -31,8 +93,8 @@
     }, time);
     return appleInterval;
   }
-  setApple(10000);
-  
+  setApple(appleTime);
+
   // draw apple
   function drawApple(x, y) {
     ctx.beginPath();
@@ -44,7 +106,7 @@
       Math.PI * 2,
       true
     );
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fill();
   }
 })();
