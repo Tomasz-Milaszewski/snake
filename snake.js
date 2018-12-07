@@ -1,5 +1,7 @@
 (function game() {
   let spaceCounter = 0;
+  let actionLock = false;
+
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
       spaceCounter === 0
@@ -12,7 +14,11 @@
   });
 
   // TODO
-  // function pauseOn() {}
+  function pauseOn() {
+    document.querySelector(".game-message").innerHTML =
+      "Pause On<br>Press Space to resume";
+    actionLock = true;
+  }
   // function pauseOff() {}
 
   function gameOver() {
@@ -22,6 +28,7 @@
   }
 
   function action() {
+    if (actionLock) {return;}
     // message
     document.querySelector(".game-message").innerHTML = "Press Space to pause";
     // canvas
@@ -60,14 +67,15 @@
 
     // snake interval
     function moveSnake() {
-        clearSnake();
-        currentHeadX += incrX;
-        currentHeadY += incrY;
-        hitBorderOrItselfOrMine();
-        snake.unshift({ x: currentHeadX, y: currentHeadY });
-        eatApple();
-        drawSnake();
-        !clearSnakeTimeout && setTimeout(moveSnake, snakeTime);
+      if (actionLock) {return;}
+      clearSnake();
+      currentHeadX += incrX;
+      currentHeadY += incrY;
+      hitBorderOrItselfOrMine();
+      snake.unshift({ x: currentHeadX, y: currentHeadY });
+      eatApple();
+      drawSnake();
+      !clearSnakeTimeout && setTimeout(moveSnake, snakeTime);
     }
     moveSnake();
 
@@ -154,9 +162,10 @@
 
     // move handler
     function moveHandler(e) {
+      if (actionLock) {return;}
       switch (e.code) {
         case "ArrowLeft":
-        if (previousCode === "ArrowRight") {
+          if (previousCode === "ArrowRight") {
             return;
           }
           incrX = -1;
@@ -164,7 +173,7 @@
           previousCode = e.code;
           break;
         case "ArrowUp":
-        if (previousCode === "ArrowDown") {
+          if (previousCode === "ArrowDown") {
             return;
           }
           incrX = 0;
@@ -172,7 +181,7 @@
           previousCode = e.code;
           break;
         case "ArrowRight":
-        if (previousCode === "ArrowLeft") {
+          if (previousCode === "ArrowLeft") {
             return;
           }
           incrX = 1;
@@ -180,7 +189,7 @@
           previousCode = e.code;
           break;
         case "ArrowDown":
-        if (previousCode === "ArrowUp") {
+          if (previousCode === "ArrowUp") {
             return;
           }
           incrX = 0;
@@ -192,6 +201,7 @@
 
     // apple interval: random position change every 10 seconds
     function setApple(time) {
+      if (actionLock) {return;}
       drawAppleOrMine(appleX, appleY, "red");
       appleInterval = setInterval(() => {
         ctx.clearRect(appleX * cellSize, appleY * cellSize, cellSize, cellSize);
@@ -212,6 +222,7 @@
 
     // mine interval: random position change every 30 seconds
     function setMine(time) {
+      if (actionLock) {return;}
       drawAppleOrMine(mineX, mineY, "black");
       mineInterval = setInterval(() => {
         ctx.clearRect(mineX * cellSize, mineY * cellSize, cellSize, cellSize);
