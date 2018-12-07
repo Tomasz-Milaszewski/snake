@@ -1,7 +1,6 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
-  console.log(actionLock);
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
       spaceCounter === 0
@@ -33,7 +32,6 @@
     if (actionLock) {
       return;
     }
-    console.log(actionLock);
     // message
     document.querySelector(".game-message").innerHTML = "Press Space to pause";
     // canvas
