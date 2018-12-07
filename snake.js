@@ -17,7 +17,7 @@
 
   function gameOver() {
     document.querySelector(".game-message").innerHTML =
-      "Game over. Press Space to replay";
+      "Game over<br>Press Space to replay";
     spaceCounter = 0;
   }
 
@@ -49,7 +49,7 @@
     } while (mineX === appleX && mineY === appleY);
     var mineInterval;
     // snake's initial values
-    let snakeTime = 100;
+    let snakeTime = 200;
     let snake = [{ x: 0, y: 0 }];
     let currentHeadX = 0;
     let currentHeadY = 0;
