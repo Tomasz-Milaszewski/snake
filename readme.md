@@ -33,5 +33,4 @@ This is a repository for a classic Snake game.
 
 #### Additional features
 
-* mines - every 30 seconds new mine appears on the board in some random position. If snake crashes into mine - game ends
 * local/global scoreboard

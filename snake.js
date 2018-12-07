@@ -56,12 +56,10 @@
     let incrX = 1;
     let incrY = 0;
     let previousCode = "";
-    var snakeInterval;
+    var clearSnakeTimeout = false;
 
     // snake interval
-    function moveSnake(time) {
-      drawSnake();
-      snakeInterval = setInterval(() => {
+    function moveSnake() {
         clearSnake();
         currentHeadX += incrX;
         currentHeadY += incrY;
@@ -69,10 +67,9 @@
         snake.unshift({ x: currentHeadX, y: currentHeadY });
         eatApple();
         drawSnake();
-      }, time);
-      return snakeInterval;
+        !clearSnakeTimeout && setTimeout(moveSnake, snakeTime);
     }
-    moveSnake(snakeTime);
+    moveSnake();
 
     // hit border or itself or mine
     function hitBorderOrItselfOrMine() {
@@ -88,16 +85,15 @@
         clearInterval(appleInterval);
         clearInterval(mineInterval);
         drawSnake();
-        clearInterval(snakeInterval);
+        clearSnakeTimeout = true;
         gameOver();
       } else {
         if (currentHeadX === mineX && currentHeadY === mineY) {
           clearInterval(appleInterval);
           clearInterval(mineInterval);
-          clearInterval(snakeInterval);
-          drawSnake();
           snake.pop();
-          snake.shift();
+          clearSnakeTimeout = true;
+          drawSnake();
           gameOver();
         }
       }
@@ -120,18 +116,11 @@
         );
         setApple(appleTime);
         if (score % 5 === 0) {
-          increaseSpeed();
+          snakeTime = snakeTime / 1.25;
         }
       } else {
         snake.pop();
       }
-    }
-
-    // increase speed every 5 apples
-    function increaseSpeed() {
-      snakeTime = snakeTime / 1.25;
-      clearInterval(snakeInterval);
-      moveSnake(snakeTime);
     }
 
     // clear snake
@@ -145,6 +134,7 @@
         );
       }
     }
+    drawSnake();
 
     // draw snake
     function drawSnake() {
@@ -166,7 +156,7 @@
     function moveHandler(e) {
       switch (e.code) {
         case "ArrowLeft":
-          if (previousCode === "ArrowRight") {
+        if (previousCode === "ArrowRight") {
             return;
           }
           incrX = -1;
@@ -174,7 +164,7 @@
           previousCode = e.code;
           break;
         case "ArrowUp":
-          if (previousCode === "ArrowDown") {
+        if (previousCode === "ArrowDown") {
             return;
           }
           incrX = 0;
@@ -182,7 +172,7 @@
           previousCode = e.code;
           break;
         case "ArrowRight":
-          if (previousCode === "ArrowLeft") {
+        if (previousCode === "ArrowLeft") {
             return;
           }
           incrX = 1;
@@ -190,7 +180,7 @@
           previousCode = e.code;
           break;
         case "ArrowDown":
-          if (previousCode === "ArrowUp") {
+        if (previousCode === "ArrowUp") {
             return;
           }
           incrX = 0;
