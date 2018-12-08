@@ -31,8 +31,12 @@
 .welcome {
 	line-height: 1.5em;
 	margin-top: 30px;
-	border-bottom: 1px solid black;
 }
 .info-box {
+	line-height: 1.5em;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.highscore {
 	line-height: 1.5em;
 }

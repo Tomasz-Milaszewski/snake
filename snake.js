@@ -1,6 +1,7 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
+  
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
       spaceCounter === 0
