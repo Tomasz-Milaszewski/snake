@@ -12,6 +12,7 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
+	line-height: 1.5em;
 }
 .score {
 	height: 20px;
@@ -23,20 +24,14 @@
 .game-message {
 	height: 60px;
 	text-align: center;
-	line-height: 1.5em;
 }
 .info-container {
 	align-items: flex-start;
 }
 .welcome {
-	line-height: 1.5em;
 	margin-top: 30px;
 }
 .info-box {
-	line-height: 1.5em;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
-}
-.highscore {
-	line-height: 1.5em;
 }

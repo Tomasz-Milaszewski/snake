@@ -22,12 +22,14 @@ This is a repository for a classic Snake game.
 * HTML5, HTML Canvas
 * CSS3
 * Vanilla JS
+* localStorage
 
 ## Lessons learned
 
 * `do {} while () loop`  
 * `array.unshift()`
 * `array.pop()`
+* localStorage
 
 ## To do
 
