@@ -1,7 +1,11 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
-  
+  localStorage.setItem("highscore", "0");
+  document.querySelector(".highscore span").innerHTML = localStorage.getItem(
+    "highscore"
+  );
+
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
       spaceCounter === 0
@@ -100,6 +104,7 @@
         drawSnake();
         clearSnakeTimeout = true;
         gameOver();
+        updateHighscore();
       } else {
         if (currentHeadX === mineX && currentHeadY === mineY) {
           clearInterval(appleInterval);
@@ -108,7 +113,18 @@
           clearSnakeTimeout = true;
           drawSnake();
           gameOver();
+          updateHighscore();
         }
+      }
+    }
+
+    //update highscore
+    function updateHighscore() {
+      if (score > localStorage.getItem("highscore")) {
+        localStorage.setItem("highscore", JSON.stringify(score));
+        document.querySelector(".highscore span").innerHTML = localStorage.getItem(
+          "highscore"
+        );
       }
     }
 
