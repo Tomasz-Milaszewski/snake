@@ -1,7 +1,26 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
+
+  let scoreTable = [];
+  let scores = [];
   let player = "";
+  let highscore = null;
+
+  function handleScoreTable() {
+    if (localStorage.length !== 0) {
+      for (let i = 0; i < localStorage.length; i++) {
+        scoreTable.push(localStorage.key(i));
+        scoreTable.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+      }
+    }
+    scores = scoreTable.filter(el => typeof el === "number");
+    if (scores.length > 0) {
+      highscore = Math.max(...scores);
+    }
+    document.querySelector(".highscore span").innerHTML = highscore;
+  }
+  handleScoreTable();
 
   function handleNameInput() {
     const form = document.querySelector(".name-input-form");
@@ -11,7 +30,9 @@
       event.preventDefault();
       player = input.value;
       input.style.display = "none";
-      label.innerHTML = `Good luck ${player}!<br>Personal best: ${JSON.parse(localStorage.getItem(player))}`;
+      label.innerHTML = `Good luck ${player}!<br>Personal best: ${JSON.parse(
+        localStorage.getItem(player)
+      ) || 0}`;
     });
   }
   handleNameInput();
@@ -47,10 +68,6 @@
     if (actionLock) {
       return;
     }
-    // scores
-    let scoreTable = [];
-    let scores = [];
-    let highscore = null;
     // message
     document.querySelector(".game-message").innerHTML = "Press Space to pause";
     // canvas
@@ -86,24 +103,6 @@
     let incrY = 0;
     let previousCode = "";
     var clearSnakeTimeout = false;
-
-    // scores
-    function handleScoreTable() {
-      if (localStorage.length !== 0) {
-        for (let i = 0; i < localStorage.length; i++) {
-          scoreTable.push(localStorage.key(i));
-          scoreTable.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
-        }
-      }
-      scores = scoreTable.filter(el => typeof el === "number");
-      if (scores.length > 0) {
-        highscore = Math.max(...scores);
-      }
-      document.querySelector(".highscore span").innerHTML = highscore;
-    }
-    handleScoreTable();
 
     // snake interval
     function moveSnake() {
@@ -155,16 +154,20 @@
       if (!scoreTable.includes(player)) {
         console.log("new player");
         localStorage.setItem(player, JSON.stringify(score));
+        handleScoreTable();
       }
       if (score > localStorage.getItem(player)) {
         console.log("new personal");
         localStorage.setItem(player, JSON.stringify(score));
+        handleScoreTable();
+        const label = document.querySelector(".name-input-form label");
+        label.innerHTML = `Good luck ${player}!<br>Personal best: ${score || 0}`;
       }
-      if (score > Math.max(...scores)) {
-        console.log("new highscore");
-        highscore = score;
-        document.querySelector(".highscore span").innerHTML = highscore;
-      }
+      // if (score > Math.max(...scores)) {
+      //   console.log("new highscore");
+      //   highscore = score;
+      //   document.querySelector(".highscore span").innerHTML = highscore;
+      // }
     }
 
     // eat apple
