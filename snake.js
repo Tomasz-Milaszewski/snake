@@ -1,38 +1,20 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
-
-  let scoreTable = [];
-  let scores = [];
-  let highscore = null;
   let player = "";
-
-  function handleScoreTable() {
-    if (localStorage.length !== 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        scoreTable.push(localStorage.key(i));
-        scoreTable.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-      }
-    }
-    scores = scoreTable.filter(el => typeof el === "number");
-    if (scores.length > 1) {highscore = Math.max(...scores)};
-  }
-  handleScoreTable();
 
   function handleNameInput() {
     const form = document.querySelector(".name-input-form");
+    const label = document.querySelector(".name-input-form label");
     const input = document.querySelector(".name-input-form input");
     form.addEventListener("submit", event => {
       event.preventDefault();
       player = input.value;
-      console.log(player);
-      form.style.display = "none";
+      input.style.display = "none";
+      label.innerHTML = `Good luck ${player}!`;
     });
   }
   handleNameInput();
-
-  // localStorage.setItem("Ben", "3");
-  document.querySelector(".highscore span").innerHTML = highscore;
 
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
@@ -65,6 +47,10 @@
     if (actionLock) {
       return;
     }
+    // scores
+    let scoreTable = [];
+    let scores = [];
+    let highscore = null;
     // message
     document.querySelector(".game-message").innerHTML = "Press Space to pause";
     // canvas
@@ -101,6 +87,24 @@
     let previousCode = "";
     var clearSnakeTimeout = false;
 
+    // scores
+    function handleScoreTable() {
+      if (localStorage.length !== 0) {
+        for (let i = 0; i < localStorage.length; i++) {
+          scoreTable.push(localStorage.key(i));
+          scoreTable.push(
+            JSON.parse(localStorage.getItem(localStorage.key(i)))
+          );
+        }
+      }
+      scores = scoreTable.filter(el => typeof el === "number");
+      if (scores.length > 0) {
+        highscore = Math.max(...scores);
+      }
+      document.querySelector(".highscore span").innerHTML = highscore;
+    }
+    handleScoreTable();
+
     // snake interval
     function moveSnake() {
       if (!actionLock) {
@@ -132,7 +136,7 @@
         drawSnake();
         clearSnakeTimeout = true;
         gameOver();
-        updateHighscore();
+        updatePlayerHighscore();
       } else {
         if (currentHeadX === mineX && currentHeadY === mineY) {
           clearInterval(appleInterval);
@@ -141,18 +145,25 @@
           clearSnakeTimeout = true;
           drawSnake();
           gameOver();
-          updateHighscore();
+          updatePlayerHighscore();
         }
       }
     }
 
-    //update highscore
-    function updateHighscore() {
-      if (score > localStorage.getItem("highscore")) {
-        localStorage.setItem("highscore", JSON.stringify(score));
-        document.querySelector(
-          ".highscore span"
-        ).innerHTML = localStorage.getItem("highscore");
+    //update player's highscore
+    function updatePlayerHighscore() {
+      if (!scoreTable.includes(player)) {
+        console.log("new player");
+        localStorage.setItem(player, JSON.stringify(score));
+      }
+      if (score > localStorage.getItem(player)) {
+        console.log("new personal");
+        localStorage.setItem(player, JSON.stringify(score));
+      }
+      if (score > Math.max(...scores)) {
+        console.log("new highscore");
+        highscore = score;
+        document.querySelector(".highscore span").innerHTML = highscore;
       }
     }
 
