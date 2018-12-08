@@ -1,10 +1,27 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
-  localStorage.setItem("highscore", "0");
-  document.querySelector(".highscore span").innerHTML = localStorage.getItem(
-    "highscore"
-  );
+  
+  let scoreTable = [];
+  function handleScoreTable() {
+    if (localStorage.length !== 0) {
+      for (let i = 0 ; i < localStorage.length ; i++) {
+        scoreTable.push(localStorage.key(i));
+        scoreTable.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+      }
+    } 
+  }
+  handleScoreTable();
+  console.log(scoreTable);
+
+function handleNameInput() {
+  const form = document.querySelector
+}
+
+  // localStorage.setItem("highscore", "0");
+  // document.querySelector(".highscore span").innerHTML = localStorage.getItem(
+  //   "highscore"
+  // );
 
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
