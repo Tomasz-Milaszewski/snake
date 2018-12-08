@@ -11,7 +11,7 @@
       event.preventDefault();
       player = input.value;
       input.style.display = "none";
-      label.innerHTML = `Good luck ${player}!`;
+      label.innerHTML = `Good luck ${player}!<br>Personal best: ${JSON.parse(localStorage.getItem(player))}`;
     });
   }
   handleNameInput();
