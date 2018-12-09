@@ -30,6 +30,25 @@
   }
   handleScoreTable();
 
+  function handleHighscoresDisplay() {
+    const list = document.querySelector(".highscores ul");
+    const button = document.querySelector(".highscores button");
+    button.addEventListener("click", event => {
+      scoresSorted.map(e => {
+        let li = document.createElement("li");
+        let players = [];
+        scoreTable.forEach((element, index) => {
+          if (element === e) {
+            players.push(scoreTable[index - 1]);
+          }
+        });
+        li.innerHTML = `${e}: ${players}`;
+        list.appendChild(li);
+      });
+    });
+  }
+  handleHighscoresDisplay();
+
   function handleNameInput() {
     const form = document.querySelector(".name-input-form");
     const label = document.querySelector(".name-input-form label");
