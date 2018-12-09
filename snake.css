@@ -5,6 +5,7 @@
 	align-items: flex-start;
 	font-family: 'Open Sans', 'Verdana', sans-serif;
 	font-size: 18px;
+	border-bottom: 1px solid black;
 }
 .board-container,
 .info-container {
@@ -45,4 +46,23 @@ input {
 	width: 140px;
 	border-radius: 3px;
 	border: 1px solid black;
+}
+.highscores {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.highscores button {
+	font-family: 'Open Sans', 'Verdana', sans-serif;
+	font-size: 18px;
+	border-radius: 3px;
+	border: 1px solid black;
+	background: none;
+}
+.highscores button:hover {
+	background: black;
+	color: white;
+}
+.highscores button:focus {
+  outline: none;
 }
