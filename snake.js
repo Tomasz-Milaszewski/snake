@@ -4,6 +4,7 @@
 
   let scoreTable = [];
   let scores = [];
+  let scoresSorted = [];
   let player = "Anonymous";
   let highscore = null;
 
@@ -19,6 +20,13 @@
       highscore = Math.max(...scores);
     }
     document.querySelector(".highscore span").innerHTML = highscore;
+    for (let j = highscore; j >= 0; j--) {
+      if (!scoresSorted.includes(j)) {
+        scoresSorted.push(j);
+      }
+    }
+    scoresSorted = scoresSorted.sort((a, b) => b - a);
+    console.log(scoresSorted);
   }
   handleScoreTable();
 
@@ -161,7 +169,8 @@
         localStorage.setItem(player, JSON.stringify(score));
         handleScoreTable();
         const label = document.querySelector(".name-input-form label");
-        label.innerHTML = `Good luck ${player}!<br>Personal best: ${score || 0}`;
+        label.innerHTML = `Good luck ${player}!<br>Personal best: ${score ||
+          0}`;
       }
       // if (score > Math.max(...scores)) {
       //   console.log("new highscore");
