@@ -4,7 +4,7 @@
 
   let scoreTable = [];
   let scores = [];
-  let player = "";
+  let player = "Anonymous";
   let highscore = null;
 
   function handleScoreTable() {
