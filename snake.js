@@ -1,6 +1,7 @@
 (function game() {
   let spaceCounter = 0;
   let actionLock = false;
+  let highscoresVisible = false;
 
   let scoreTable = [];
   let scores = [];
@@ -33,18 +34,31 @@
   function handleHighscoresDisplay() {
     const list = document.querySelector(".highscores ul");
     const button = document.querySelector(".highscores button");
-    button.addEventListener("click", event => {
-      scoresSorted.map(e => {
-        let li = document.createElement("li");
-        let players = [];
-        scoreTable.forEach((element, index) => {
-          if (element === e) {
-            players.push(scoreTable[index - 1]);
-          }
+    button.addEventListener("click", () => {
+      if (highscoresVisible) {
+        document.querySelectorAll(".highscores li").forEach(function(node) {
+          node.remove();
         });
-        li.innerHTML = `${e}: ${players}`;
-        list.appendChild(li);
-      });
+        list.style.display = "none";
+        highscoresVisible = false;
+        button.innerHTML = "Show Highscores";
+      } else {
+        list.style.display = "initial";
+        button.innerHTML = "Hide Highscores";
+        scoresSorted.map(e => {
+          let li = document.createElement("li");
+          let players = [];
+          scoreTable.forEach((element, index) => {
+            if (element === e) {
+              players.push(scoreTable[index - 1]);
+            }
+          });
+          players = players.join(", ");
+          li.innerHTML = `${e}: ${players}`;
+          players.length > 0 && list.appendChild(li);
+        });
+        highscoresVisible = true;
+      }
     });
   }
   handleHighscoresDisplay();

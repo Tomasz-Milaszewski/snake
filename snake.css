@@ -49,6 +49,7 @@ input {
 }
 .highscores {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -58,6 +59,7 @@ input {
 	border-radius: 3px;
 	border: 1px solid black;
 	background: none;
+	margin-bottom: 10px;
 }
 .highscores button:hover {
 	background: black;
@@ -65,4 +67,9 @@ input {
 }
 .highscores button:focus {
   outline: none;
+}
+.highscores ul {
+	font-family: 'Open Sans', 'Verdana', sans-serif;
+	font-size: 18px;
+	line-height: 1.4em;
 }
