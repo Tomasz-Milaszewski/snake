@@ -12,10 +12,11 @@
   function handleScoreTable() {
     if (localStorage.length !== 0) {
       for (let i = 0; i < localStorage.length; i++) {
-        scoreTable.push(localStorage.key(i));
-        scoreTable.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+        scoreTable[(2 * i)] = localStorage.key(i);
+        scoreTable[(2 * i + 1)] = JSON.parse(localStorage.getItem(localStorage.key(i)));
       }
     }
+    console.log(scoreTable);
     scores = scoreTable.filter(el => typeof el === "number");
     if (scores.length > 0) {
       highscore = Math.max(...scores);
@@ -27,7 +28,6 @@
       }
     }
     scoresSorted = scoresSorted.sort((a, b) => b - a);
-    console.log(scoresSorted);
   }
   handleScoreTable();
 
@@ -193,14 +193,16 @@
     //update player's highscore
     function updatePlayerHighscore() {
       if (!scoreTable.includes(player)) {
-        console.log("new player");
         localStorage.setItem(player, JSON.stringify(score));
+        console.log(scoreTable);
         handleScoreTable();
+        console.log(scoreTable);
       }
       if (score > localStorage.getItem(player)) {
-        console.log("new personal");
         localStorage.setItem(player, JSON.stringify(score));
+        console.log(scoreTable);
         handleScoreTable();
+        console.log(scoreTable);
         const label = document.querySelector(".name-input-form label");
         label.innerHTML = `Good luck ${player}!<br>Personal best: ${score ||
           0}`;
