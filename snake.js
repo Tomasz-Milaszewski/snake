@@ -260,7 +260,7 @@
 
     // draw snake
     function drawSnake() {
-      ctx.fillStyle = "green";
+      ctx.fillStyle = 'rgb(78, 108, 24)';
       for (let i = 0; i < snake.length; i++) {
         ctx.fillRect(
           snake[i].x * cellSize + 1,
