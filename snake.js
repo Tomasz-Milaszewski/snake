@@ -44,9 +44,9 @@
         highscoresVisible = false;
         button.innerHTML = "Show Highscores";
       } else {
+        updateHighscores(list);
         list.style.display = "initial";
         button.innerHTML = "Hide Highscores";
-        updateHighscores(list);
         highscoresVisible = true;
       }
     });
@@ -69,6 +69,11 @@
       li.innerHTML = `${e}: ${players}`;
       players.length > 0 && parent.appendChild(li);
     });
+    if (highscoresVisible) {
+      parent.style.display = "initial";
+    } else {
+      parent.style.display = "none";
+    }
   }
 
   function handleNameInput() {
@@ -145,7 +150,7 @@
     } while (mineX === appleX && mineY === appleY);
     var mineInterval;
     // snake's initial values
-    let snakeTime = 200;
+    let snakeTime = 180;
     let snake = [{ x: 0, y: 0 }];
     let currentHeadX = 0;
     let currentHeadY = 0;
