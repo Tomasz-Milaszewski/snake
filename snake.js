@@ -16,7 +16,6 @@
         scoreTable[(2 * i + 1)] = JSON.parse(localStorage.getItem(localStorage.key(i)));
       }
     }
-    console.log(scoreTable);
     scores = scoreTable.filter(el => typeof el === "number");
     if (scores.length > 0) {
       highscore = Math.max(...scores);
@@ -45,23 +44,30 @@
       } else {
         list.style.display = "initial";
         button.innerHTML = "Hide Highscores";
-        scoresSorted.map(e => {
-          let li = document.createElement("li");
-          let players = [];
-          scoreTable.forEach((element, index) => {
-            if (element === e) {
-              players.push(scoreTable[index - 1]);
-            }
-          });
-          players = players.join(", ");
-          li.innerHTML = `${e}: ${players}`;
-          players.length > 0 && list.appendChild(li);
-        });
+        updateHighscores(list);
         highscoresVisible = true;
       }
     });
   }
   handleHighscoresDisplay();
+  
+  function updateHighscores(parent) {
+    document.querySelectorAll(".highscores li").forEach(function(node) {
+      node.remove();
+    });
+    scoresSorted.map(e => {
+      let li = document.createElement("li");
+      let players = [];
+      scoreTable.forEach((element, index) => {
+        if (element === e) {
+          players.push(scoreTable[index - 1]);
+        }
+      });
+      players = players.join(", ");
+      li.innerHTML = `${e}: ${players}`;
+      players.length > 0 && parent.appendChild(li);
+    });
+}
 
   function handleNameInput() {
     const form = document.querySelector(".name-input-form");
@@ -80,6 +86,7 @@
 
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
+      e.preventDefault();
       spaceCounter === 0
         ? action()
         : spaceCounter % 2 !== 0
@@ -192,17 +199,16 @@
 
     //update player's highscore
     function updatePlayerHighscore() {
+      const list = document.querySelector(".highscores ul");
       if (!scoreTable.includes(player)) {
         localStorage.setItem(player, JSON.stringify(score));
-        console.log(scoreTable);
         handleScoreTable();
-        console.log(scoreTable);
+        updateHighscores(list);
       }
       if (score > localStorage.getItem(player)) {
         localStorage.setItem(player, JSON.stringify(score));
-        console.log(scoreTable);
         handleScoreTable();
-        console.log(scoreTable);
+        updateHighscores(list);
         const label = document.querySelector(".name-input-form label");
         label.innerHTML = `Good luck ${player}!<br>Personal best: ${score ||
           0}`;
