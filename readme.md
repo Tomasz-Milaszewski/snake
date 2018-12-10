@@ -30,9 +30,3 @@ This is a repository for a classic Snake game.
 * `array.unshift()`
 * `array.pop()`
 * localStorage
-
-## To do
-
-#### Additional features
-
-* local/global scoreboard

@@ -1,11 +1,23 @@
-.game-container {
-	margin: 10px;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
+body {
 	font-family: 'Open Sans', 'Verdana', sans-serif;
 	font-size: 18px;
-	border-bottom: 1px solid black;
+}
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+	font-size: 24px;
+}
+.game-container {
+	margin: 20px 10px; 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	border: 1px solid black;
+	border-radius: 3px;
 }
 .board-container,
 .info-container {
@@ -13,10 +25,13 @@
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
-	line-height: 1.4em;
+	line-height: 1.5em;
+	min-width: 220px;
 }
+
 .score {
-	height: 20px;
+	height: 30px;
+	margin-top: 10px;
 }
 #canvas {
 	outline: 1px solid black;
@@ -28,13 +43,10 @@
 }
 .info-container {
 	align-items: flex-start;
+	margin-top: 50px;
 	margin-left: 10px;
 }
-.welcome {
-	margin-top: 30px;
-}
 .info-box {
-	border-top: 1px solid black;
 	border-bottom: 1px solid black;
 }
 input,
@@ -70,7 +82,17 @@ input {
   outline: none;
 }
 .highscores ul {
-	font-family: 'Open Sans', 'Verdana', sans-serif;
-	font-size: 18px;
-	line-height: 1.4em;
+	line-height: 1.5em;
+}
+
+/* media queries */
+@media (max-width: 480px) {
+.info-container {
+	margin-top: 20px;
+	border-top: 1px solid black;
+	text-align: center;
+
+}
+
+
 }
