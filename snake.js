@@ -12,8 +12,10 @@
   function handleScoreTable() {
     if (localStorage.length !== 0) {
       for (let i = 0; i < localStorage.length; i++) {
-        scoreTable[(2 * i)] = localStorage.key(i);
-        scoreTable[(2 * i + 1)] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        scoreTable[2 * i] = localStorage.key(i);
+        scoreTable[2 * i + 1] = JSON.parse(
+          localStorage.getItem(localStorage.key(i))
+        );
       }
     }
     scores = scoreTable.filter(el => typeof el === "number");
@@ -50,7 +52,7 @@
     });
   }
   handleHighscoresDisplay();
-  
+
   function updateHighscores(parent) {
     document.querySelectorAll(".highscores li").forEach(function(node) {
       node.remove();
@@ -67,7 +69,7 @@
       li.innerHTML = `${e}: ${players}`;
       players.length > 0 && parent.appendChild(li);
     });
-}
+  }
 
   function handleNameInput() {
     const form = document.querySelector(".name-input-form");
@@ -176,7 +178,8 @@
         currentHeadY > cellsGrid - 1 ||
         snake.some(e => {
           return e.x === currentHeadX && e.y === currentHeadY;
-        })
+        }) ||
+        (currentHeadX === mineX && currentHeadY === mineY)
       ) {
         clearInterval(appleInterval);
         clearInterval(mineInterval);
@@ -184,16 +187,6 @@
         clearSnakeTimeout = true;
         gameOver();
         updatePlayerHighscore();
-      } else {
-        if (currentHeadX === mineX && currentHeadY === mineY) {
-          clearInterval(appleInterval);
-          clearInterval(mineInterval);
-          snake.pop();
-          clearSnakeTimeout = true;
-          drawSnake();
-          gameOver();
-          updatePlayerHighscore();
-        }
       }
     }
 
@@ -255,7 +248,7 @@
 
     // draw snake
     function drawSnake() {
-      ctx.fillStyle = 'rgb(78, 108, 24)';
+      ctx.fillStyle = "rgb(78, 108, 24)";
       for (let i = 0; i < snake.length; i++) {
         ctx.fillRect(
           snake[i].x * cellSize + 1,
