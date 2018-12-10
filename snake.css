@@ -1,98 +1,115 @@
 body {
-	font-family: 'Open Sans', 'Verdana', sans-serif;
-	font-size: 18px;
+  font-family: "Open Sans", "Verdana", sans-serif;
+  font-size: 18px;
 }
 .header {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 20px;
-	font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 24px;
 }
 .game-container {
-	margin: 20px 10px; 
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: flex-start;
-	border: 1px solid black;
-	border-radius: 3px;
+  margin: 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid black;
+  border-radius: 3px;
 }
 .board-container,
 .info-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	line-height: 1.5em;
-	min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 1.5em;
+  min-width: 220px;
 }
 
 .score {
-	height: 30px;
-	margin-top: 10px;
+  height: 30px;
+  margin-top: 10px;
 }
 #canvas {
-	outline: 1px solid black;
-	margin: 10px;
+  outline: 1px solid black;
+  margin: 10px;
 }
 .game-message {
-	height: 60px;
-	text-align: center;
+  height: 60px;
+  text-align: center;
 }
 .info-container {
-	align-items: flex-start;
-	margin-top: 50px;
-	margin-left: 10px;
+  align-items: flex-start;
+  margin-top: 50px;
+  margin-left: 10px;
 }
 .info-box {
-	border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
 }
 input,
 ::-webkit-input-placeholder {
-	font-family: 'Open Sans', 'Verdana', sans-serif;
-	font-size: 18px;
-	text-align: center;
+  font-family: "Open Sans", "Verdana", sans-serif;
+  font-size: 18px;
+  text-align: center;
 }
 input {
-	width: 140px;
-	border-radius: 3px;
-	border: 1px solid black;
+  width: 140px;
+  border-radius: 3px;
+  border: 1px solid black;
 }
 .highscores {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .highscores button {
-	font-family: 'Open Sans', 'Verdana', sans-serif;
-	font-size: 18px;
-	border-radius: 3px;
-	border: 1px solid black;
-	background: none;
-	margin-bottom: 10px;
+  font-family: "Open Sans", "Verdana", sans-serif;
+  font-size: 18px;
+  border-radius: 3px;
+  border: 1px solid black;
+  background: none;
+  margin-bottom: 10px;
 }
 .highscores button:hover {
-	background: black;
-	color: white;
+  background: black;
+  color: white;
 }
 .highscores button:focus {
   outline: none;
 }
 .highscores ul {
-	line-height: 1.5em;
+  line-height: 1.5em;
 }
 
 /* media queries */
-@media (max-width: 480px) {
-.info-container {
-	margin-top: 20px;
-	border-top: 1px solid black;
-	text-align: center;
-
-}
-
-
+@media (max-width: 471px) {
+	.header {
+		margin-top: 10px;
+	}
+	.game-container {
+		margin: 10px;
+	}
+	.score {
+		height: 20px;
+		margin-top: 0px;
+	}
+	.info-container {
+    margin-top: 0px;
+    border-top: 1px solid black;
+    text-align: center;
+    align-items: center;
+  }
+  .highscore-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	}
+	.name-input-form {
+		margin-bottom: 10px;
+	}
 }
