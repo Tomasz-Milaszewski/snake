@@ -171,9 +171,9 @@
     function hitBorderOrItselfOrMine() {
       if (
         currentHeadX < 0 ||
-        currentHeadX > 19 ||
+        currentHeadX > cellsGrid - 1 ||
         currentHeadY < 0 ||
-        currentHeadY > 19 ||
+        currentHeadY > cellsGrid - 1 ||
         snake.some(e => {
           return e.x === currentHeadX && e.y === currentHeadY;
         })
@@ -213,11 +213,6 @@
         label.innerHTML = `Good luck ${player}!<br>Personal best: ${score ||
           0}`;
       }
-      // if (score > Math.max(...scores)) {
-      //   console.log("new highscore");
-      //   highscore = score;
-      //   document.querySelector(".highscore span").innerHTML = highscore;
-      // }
     }
 
     // eat apple
@@ -232,7 +227,7 @@
         } while (
           snake.some(e => {
             return e.x === appleX && e.y === appleY;
-          }) &&
+          }) ||
           (mineX === appleX && mineY === appleY)
         );
         drawAppleOrMine(appleX, appleY, "red");
@@ -328,7 +323,7 @@
         } while (
           snake.some(e => {
             return e.x === appleX && e.y === appleY;
-          }) &&
+          }) ||
           (mineX === appleX && mineY === appleY)
         );
         drawAppleOrMine(appleX, appleY, "red");
@@ -350,7 +345,7 @@
         } while (
           snake.some(e => {
             return e.x === mineX && e.y === mineY;
-          }) &&
+          }) ||
           (mineX === appleX && mineY === appleY)
         );
         drawAppleOrMine(mineX, mineY, "black");
