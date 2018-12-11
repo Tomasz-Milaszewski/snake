@@ -1,6 +1,9 @@
 (function game() {
   const list = document.querySelector(".highscores ul");
   const button = document.querySelector(".highscores button");
+  const form = document.querySelector(".name-input-form");
+  const label = document.querySelector(".name-input-form label");
+  const input = document.querySelector(".name-input-form input");
   let spaceCounter = 0;
   let actionLock = false;
   let highscoresVisible = false;
@@ -44,7 +47,7 @@
       parent.style.display = "none";
     }
   }
-  
+
   function createHighscores(parent) {
     scoresSorted.map(e => {
       let li = document.createElement("li");
@@ -58,23 +61,19 @@
       li.innerHTML = `${e}: ${players}`;
       players.length > 0 && parent.appendChild(li);
     });
-}
-
-  function handleNameInput() {
-    const form = document.querySelector(".name-input-form");
-    const label = document.querySelector(".name-input-form label");
-    const input = document.querySelector(".name-input-form input");
-    form.addEventListener("submit", event => {
-      event.preventDefault();
-      player = input.value;
-      input.style.display = "none";
-      label.innerHTML = `Good luck ${player}!<br>Personal best: ${JSON.parse(
-        localStorage.getItem(player)
-      ) || 0}`;
-    });
   }
-  handleNameInput();
 
+  // name input
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    player = input.value;
+    input.style.display = "none";
+    label.innerHTML = `Good luck ${player}!<br>Personal best: ${JSON.parse(
+      localStorage.getItem(player)
+    ) || 0}`;
+  });
+
+  // showing highscores
   button.addEventListener("click", () => {
     if (highscoresVisible) {
       document.querySelectorAll(".highscores li").forEach(function(node) {
@@ -91,6 +90,7 @@
     }
   });
 
+  // game start / pauseOn / pauseOff
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
       e.preventDefault();
