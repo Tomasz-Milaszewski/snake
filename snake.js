@@ -119,23 +119,21 @@
     spaceCounter = 0;
   }
 
+  // game action
   function action() {
     if (actionLock) {
       return;
     }
-    // message
-    document.querySelector(".game-message").innerHTML = "Press Space to pause";
-    // canvas
+    // canvas, board, score & game message
     const canvas = document.querySelector("#canvas");
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, 200, 200);
-    // board
     const cellSize = 10;
     const cellsGrid = 20;
-    // score
     let score = 0;
     document.querySelector(".score span").innerHTML = `Score: ${score}`;
-    // apple's initial values
+    document.querySelector(".game-message").innerHTML = "Press Space to pause";
+    // apple initial values
     const appleTime = 10000;
     let appleX = 1 + Math.floor(Math.random() * (cellsGrid - 1));
     let appleY = 1 + Math.floor(Math.random() * (cellsGrid - 1));
@@ -159,7 +157,7 @@
     let previousCode = "";
     var clearSnakeTimeout = false;
 
-    // snake interval
+    // snake interval (recursive setTimeout)
     function moveSnake() {
       if (!actionLock) {
         clearSnake();
@@ -197,7 +195,6 @@
 
     //update player's highscore
     function updatePlayerHighscore() {
-      const list = document.querySelector(".highscores ul");
       if (!scoreTable.includes(player)) {
         localStorage.setItem(player, JSON.stringify(score));
         handleScoreTable();
@@ -207,7 +204,6 @@
         localStorage.setItem(player, JSON.stringify(score));
         handleScoreTable();
         updateHighscores(list);
-        const label = document.querySelector(".name-input-form label");
         label.innerHTML = `Good luck ${player}!<br>Personal best: ${score ||
           0}`;
       }
