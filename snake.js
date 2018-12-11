@@ -195,17 +195,11 @@
 
     //update player's highscore
     function updatePlayerHighscore() {
-      if (!scoreTable.includes(player)) {
+      if (!scoreTable.includes(player) || score > localStorage.getItem(player)) {
         localStorage.setItem(player, JSON.stringify(score));
         handleScoreTable();
         updateHighscores(list);
-      }
-      if (score > localStorage.getItem(player)) {
-        localStorage.setItem(player, JSON.stringify(score));
-        handleScoreTable();
-        updateHighscores(list);
-        label.innerHTML = `Good luck ${player}!<br>Personal best: ${score ||
-          0}`;
+        label.innerHTML = `Good luck ${player}!<br>Personal best: ${score || 0}`;
       }
     }
 
