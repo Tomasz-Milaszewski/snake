@@ -36,3 +36,8 @@ This is a repository for a classic Snake game.
 * `array.unshift(), array.pop()`
 * recursive setTimeout  
 * localStorage
+
+## To do
+
+* borders off mode - snake appears on the opposite site after hitting border
+* rotten apple - move direction change after eating 'rotten' apple
