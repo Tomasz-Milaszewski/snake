@@ -1,4 +1,6 @@
 (function game() {
+  const list = document.querySelector(".highscores ul");
+  const button = document.querySelector(".highscores button");
   let spaceCounter = 0;
   let actionLock = false;
   let highscoresVisible = false;
@@ -30,27 +32,6 @@
     scoresSorted = scoresSorted.sort((a, b) => b - a);
   }
   handleScoreTable();
-
-  function handleHighscoresDisplay() {
-    const list = document.querySelector(".highscores ul");
-    const button = document.querySelector(".highscores button");
-    button.addEventListener("click", () => {
-      if (highscoresVisible) {
-        document.querySelectorAll(".highscores li").forEach(function(node) {
-          node.remove();
-        });
-        list.style.display = "none";
-        button.innerHTML = "Show Highscores";
-        highscoresVisible = false;
-      } else {
-        updateHighscores(list);
-        list.style.display = "initial";
-        button.innerHTML = "Hide Highscores";
-        highscoresVisible = true;
-      }
-    });
-  }
-  handleHighscoresDisplay();
 
   function updateHighscores(parent) {
     document.querySelectorAll(".highscores li").forEach(function(node) {
@@ -93,6 +74,22 @@
     });
   }
   handleNameInput();
+
+  button.addEventListener("click", () => {
+    if (highscoresVisible) {
+      document.querySelectorAll(".highscores li").forEach(function(node) {
+        node.remove();
+      });
+      list.style.display = "none";
+      button.innerHTML = "Show Highscores";
+      highscoresVisible = false;
+    } else {
+      updateHighscores(list);
+      list.style.display = "initial";
+      button.innerHTML = "Hide Highscores";
+      highscoresVisible = true;
+    }
+  });
 
   document.addEventListener("keydown", e => {
     if (e.code === "Space") {
