@@ -17,6 +17,12 @@ This is a repository for a classic Snake game.
 * mines - every 30 seconds new mine appears on the board in some random position. If snake crashes into mine - game ends
 * local/global scoreboard
 
+## Extras done
+
+* pauseOn / pauseOff
+* personal best result
+* show / hide scoreboard
+
 ## Technologies and tools
 
 * HTML5, HTML Canvas
@@ -26,7 +32,7 @@ This is a repository for a classic Snake game.
 
 ## Lessons learned
 
-* `do {} while () loop`  
-* `array.unshift()`
-* `array.pop()`
+* `do {} while () loop`
+* `array.unshift(), array.pop()`
+* recursive setTimeout  
 * localStorage
