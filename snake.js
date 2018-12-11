@@ -2,7 +2,6 @@
   let spaceCounter = 0;
   let actionLock = false;
   let highscoresVisible = false;
-
   let scoreTable = [];
   let scores = [];
   let scoresSorted = [];
@@ -41,8 +40,8 @@
           node.remove();
         });
         list.style.display = "none";
-        highscoresVisible = false;
         button.innerHTML = "Show Highscores";
+        highscoresVisible = false;
       } else {
         updateHighscores(list);
         list.style.display = "initial";
@@ -57,6 +56,15 @@
     document.querySelectorAll(".highscores li").forEach(function(node) {
       node.remove();
     });
+    createHighscores(parent);
+    if (highscoresVisible) {
+      parent.style.display = "initial";
+    } else {
+      parent.style.display = "none";
+    }
+  }
+  
+  function createHighscores(parent) {
     scoresSorted.map(e => {
       let li = document.createElement("li");
       let players = [];
@@ -69,12 +77,7 @@
       li.innerHTML = `${e}: ${players}`;
       players.length > 0 && parent.appendChild(li);
     });
-    if (highscoresVisible) {
-      parent.style.display = "initial";
-    } else {
-      parent.style.display = "none";
-    }
-  }
+}
 
   function handleNameInput() {
     const form = document.querySelector(".name-input-form");
